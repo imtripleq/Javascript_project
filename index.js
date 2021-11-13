@@ -273,24 +273,69 @@ const slider = function () {
 slider();
 
 //////////////////// API SERVER
-// fetch("https://quote-garden.herokuapp.com/api/v3/quotes")
-//   .then((resp) => resp.json())
-//   .then((data) => {
-//     console.log(data);
-//     for (let i = 0; i < data.data.length; i++)
-//       console.log(data.data[i].quoteText);
-//   });
 
-let url = new URL("https://quote-garden.herokuapp.com/api/v3/quotes");
+const quotePrint1 = (data, num) => {
+  const quote = data.data[0];
+  document.getElementById(
+    `operations_quote${num}`
+  ).innerText = `"${quote.quoteText}"`;
+  document.getElementById(`operations_author${num}`).innerHTML =
+    quote.quoteAuthor;
+  document.getElementById(`operations_genre${num}`).innerHTML =
+    quote.quoteGenre.charAt(0).toUpperCase() + quote.quoteGenre.slice(1);
+};
+
+// const quotePrint2 = (data) => {
+//   const quote2 = data.data[0];
+//   document.getElementById("operations_quote2").innerText = quote2.quoteText;
+//   document.getElementById("operations_author2").innerHTML = quote2.quoteAuthor;
+//   document.getElementById("operations_genre2").innerHTML =
+//     quote2.quoteGenre.charAt(0).toUpperCase() + quote2.quoteGenre.slice(1);
+// };
+
+// const quotePrint3 = (data) => {
+//   const quote3 = data.data[0];
+//   document.getElementById("operations_quote3").innerText = quote3.quoteText;
+//   document.getElementById("operations_author3").innerHTML = quote3.quoteAuthor;
+//   document.getElementById("operations_genre3").innerHTML =
+//     quote3.quoteGenre.charAt(0).toUpperCase() + quote3.quoteGenre.slice(1);
+// };
+
+// let quoteNum1 = Math.floor(Math.random() * 30);
+// let quoteNum2 = Math.floor(Math.random() * 30);
+// let quoteNum3 = Math.floor(Math.random() * 30);
+// let pageNum = Math.floor(Math.random() * 300);
+// console.log(quoteNum1);
+// console.log(quoteNum2);
+// console.log(quoteNum3);
+// console.log(pageNum);
+let url = new URL("https://quote-garden.herokuapp.com/api/v3/quotes/random");
 url.search = new URLSearchParams({
-  page: 5,
-  limit: 20,
+  // page: pageNum,
+  // limit: 200,
+  // message: "Random quotes",
+});
+const fetch1 = (a) => {
+  fetch(url)
+    .then((resp) => resp.json())
+    .then((data) => {
+      quotePrint1(data, a);
+      // quotePrint2(data);
+      // quotePrint3(data);
+      console.log(data);
+      // for (let i = 0; i < data.data.length; i++)
+      // console.log(data.data[i].quoteText);
+    });
+};
+
+const refreshBtn = document.getElementById("refresh--btn");
+
+refreshBtn.addEventListener("click", () => {
+  fetch1(1);
+  fetch1(2);
+  fetch1(3);
 });
 
-fetch(url)
-  .then((resp) => resp.json())
-  .then((data) => {
-    console.log(data);
-    for (let i = 0; i < data.data.length; i++)
-      console.log(data.data[i].quoteText);
-  });
+fetch1(1);
+fetch1(2);
+fetch1(3);

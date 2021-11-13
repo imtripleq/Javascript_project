@@ -14,7 +14,7 @@
 
 .backVideo {
   overflow: hidden;
-  top: 130px;
+  top: 110px;
   height: 90vh;
   left: 0;
   display: block;
@@ -25,19 +25,6 @@
   z-index: 1;
 }
 
-/* @media (min-aspect-ratio: 16/9) {
-  #backVideo {
-    width: 100%;
-    height: auto;
-  }
-}
-
-@media (max-aspect-ratio: 16/9) {
-  #backVideo {
-    width: auto;
-    height: auto;
-  }
-} */
 * {
   margin: 0;
   padding: 0;
@@ -50,7 +37,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 300;
   color: #444;
   line-height: 1.9;
@@ -132,10 +119,10 @@ button:focus {
 img {
   transition: filter 0.5s;
 }
-
+/* 
 .lazy-img {
   filter: blur(20px);
-}
+} */
 
 /* NAVIGATION */
 .nav {
@@ -277,26 +264,22 @@ h1 {
   font-size: 1.5rem;
 }
 
-.features__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-primary-opacity);
-  height: 5.5rem;
-  width: 5.5rem;
-  border-radius: 50%;
-  margin-bottom: 2rem;
-}
-
-.features__icon svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  fill: var(--color-primary);
-}
-
 .features__header {
-  font-size: 2rem;
+  font-size: 3.8rem;
   margin-bottom: 1rem;
+  font-family: "Rock Salt", cursive;
+}
+
+#features__header--1 {
+  color: var(--color-secondary-darker);
+}
+
+#features__header--2 {
+  color: var(--color-primary-darker);
+}
+
+#features__header--3 {
+  color: var(--color-tertiary-darker);
 }
 
 /* OPERATIONS */
@@ -331,6 +314,14 @@ h1 {
   background-color: var(--color-secondary-darker);
 }
 
+.operations__tab--2 {
+  background-color: var(--color-primary);
+}
+
+.operations__tab--2:hover {
+  background-color: var(--color-primary-darker);
+}
+
 .operations__tab--3 {
   background-color: var(--color-tertiary);
   margin: 0;
@@ -349,9 +340,33 @@ h1 {
 
   /* JUST PRESENTATIONAL */
   font-size: 1.7rem;
-  padding: 2.5rem 7rem 6.5rem 7rem;
+  padding: 2.5rem 7rem 3rem 7rem;
+}
+.btn-primary {
+  margin-left: 7rem;
+  margin-right: 7rem;
+  margin-top: 4rem;
 }
 
+#refresh--btn_container {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 200px;
+  margin: 8%;
+  margin-top: 8%; */
+  display: flex;
+  justify-content: center;
+  margin: 3rem;
+}
+
+#refresh--btn {
+}
+.operations__author {
+  font-weight: 300;
+  text-align: right;
+  font-size: 3rem;
+  font-family: "Tangerine", cursive;
+}
 .operations__content--active {
   display: grid;
   grid-template-columns: 7rem 1fr;
@@ -361,7 +376,7 @@ h1 {
 
 .operations__header {
   font-size: 2.25rem;
-  font-weight: 500;
+  font-weight: 300;
   align-self: center;
 }
 
