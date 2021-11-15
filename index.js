@@ -1,5 +1,5 @@
 // Used to toggle the menu on small screens when clicking on the menu button
-"use strict";
+("use strict");
 
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
@@ -255,3 +255,21 @@ refreshBtn.addEventListener("click", () => {
 fetch1(1);
 fetch1(2);
 fetch1(3);
+
+///////////////////// Auth0
+let auth0 = null;
+const fetchAuthConfig = () => fetch("/auth_config.json");
+
+const configureClient = async () => {
+  const response = await fetchAuthConfig();
+  const config = await response.json();
+
+  auth0 = await createAuth0Client({
+    domain: config.domain,
+    client_id: config.clientId,
+  });
+};
+
+window.onload = async () => {
+  await configureClient();
+};

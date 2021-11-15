@@ -11,11 +11,7 @@
   --gradient-primary: linear-gradient(to top left, #b36a39, #e15d5d);
   --gradient-secondary: linear-gradient(to top left, #ffb003, #ffcb03);
 }
-/* 
-#logo {
-  height: 0px;
-  width: 0px;
-} */
+
 .backVideo {
   overflow: hidden;
   top: 120px;
@@ -148,7 +144,7 @@ img {
 }
 
 .nav__logo {
-  padding-top: 25px;
+  padding-top: 15px;
   /* height: 15rem; */
   transition: all 0.3s;
 }
