@@ -36,7 +36,7 @@
           </li>
           <li class="nav__item">
             <a class="nav__link nav__link--btn btn--show-modal" href="#"
-              >Open Account</a
+              >Create Account</a
             >
           </li>
         </ul>
@@ -143,10 +143,7 @@
           "
         >
           <div class="operations__icon operations__icon--1">
-            <input type="checkbox" id="_checkbox" />
-            <label for="_checkbox" class="codepen">
-              <div id="tick_mark"></div>
-            </label>
+            <button type="button" class="hidden likeButton" id="likeButton">Like♡</button>
           </div>
           <h5 class="operations__header" id="operations_quote1">Quotes</h5>
 
@@ -155,18 +152,14 @@
         <!-- Quotes Content 1 ////// ends -->
         <div class="operations__content operations__content--2">
           <div class="operations__icon operations__icon--2">
-            <svg>
-              <use xlink:href="img/icons.svg#icon-home"></use>
-            </svg>
+            <button type="button" class="btn btn-danger">Like♡</button>
           </div>
           <h5 class="operations__header" id="operations_quote2">Quotes2</h5>
           <p class="operations__author" id="operations_author2">Author 2</p>
         </div>
         <div class="operations__content operations__content--3">
           <div class="operations__icon operations__icon--3">
-            <svg>
-              <use xlink:href="img/icons.svg#icon-user-x"></use>
-            </svg>
+            <button type="button" class="btn btn-danger">Like ♡</button>
           </div>
           <h5 class="operations__header" id="operations_quote3">Quotes3</h5>
           <p class="operations__author" id="operations_author3">Author 3</p>
@@ -188,26 +181,103 @@
         <h3 class="section__header">
           Log in or create account to start save your quote!
         </h3>
-
-
-        <div>
-          <table>
+<div>    <h2>SPA Authentication Sample</h2>
+  <p>Welcome to our page!</p>
+  <button id="btn-login" disabled="true" onclick="login()">Log in</button>
+  <button id="btn-logout" disabled="true" onclick="logout()">Log out</button></div>
+  <button id="btn-fetch" disabled="true" onclick="">Fetch</button></div>
+  <div>
+    <div class="hidden" id="gated-content">
+      <p>
+        You're seeing this content because you're currently
+        <strong>logged in</strong>.
+      </p>
+      <label>
+        Access token:
+        <pre id="ipt-access-token"></pre>
+      </label>
+      <label>
+        User profile:
+        <pre id="ipt-user-profile"></pre>
+      </label>
+    </div>
+    </div>
+ 
+    <div class="hidden" id="table-wrapper">
+      <h2>Saved Quotes</h2>
+        <table class="fl-table">
             <thead>
-              <tr>
-                <th scope='col'>Number</th>
-                <th scope='col'>Quotes</th>
-                <th scope='col'>Update</th>
-                <th scope='col'>Delete</th>
-              </tr>
+            <tr>
+                <th>Number</th>
+                <th>Quotes</th>
+                <th>Delete</th>
+
+            </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            <tr>
+                <td>Content 1</td>
+                <td>Content 1</td>
+                <td>Content 1</td>
+
+            </tr>
+            <tr>
+                <td>Content 2</td>
+                <td>Content 2</td>
+                <td>Content 2</td>
+ 
+            </tr>
+            <tr>
+                <td>Content 3</td>
+                <td>Content 3</td>
+                <td>Content 3</td>
+ 
+            </tr>
+            <tr>
+                <td>Content 4</td>
+                <td>Content 4</td>
+                <td>Content 4</td>
+  
+            </tr>
+            <tr>
+                <td>Content 5</td>
+                <td>Content 5</td>
+                <td>Content 5</td>
+
+            </tr>
+            <tr>
+                <td>Content 6</td>
+                <td>Content 6</td>
+                <td>Content 6</td>
+
+            </tr>
+            <tr>
+                <td>Content 7</td>
+                <td>Content 7</td>
+                <td>Content 7</td>
+
+            </tr>
+            <tr>
+                <td>Content 8</td>
+                <td>Content 8</td>
+                <td>Content 8</td>
+
+            </tr>
+            <tr>
+                <td>Content 9</td>
+                <td>Content 9</td>
+                <td>Content 9</td>
+
+            </tr>
+            <tr>
+                <td>Content 10</td>
+                <td>Content 10</td>
+                <td>Content 10</td>
+
+            </tr>
+            <tbody>
+        </table>
+    </div>
       </div>
     </section>
     <!-- Account Area End -->
@@ -254,5 +324,7 @@
     <div class="overlay hidden"></div>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
     <script src="index.js"></script>
+    <script src="/src/userquotes.js"></script>
+    <script src="/src/users.js"></script>
   </body>
 </html>
