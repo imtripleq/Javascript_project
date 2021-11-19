@@ -1,6 +1,6 @@
 class Users {
-  constructor(id, email, array) {
-    this.id = id;
+  constructor(name, email, array) {
+    this.name = name;
     this.email = email;
     this.array = array;
   }
@@ -10,7 +10,5 @@ class Users {
   }
 }
 
-const storeUser = new Users("imtripleq", "abc@gmail.com", "love is wonderful");
-const storeuUser = new Users("qqq", "abc@gmail.com", "love is wonderful");
-
-console.log(storeUser);
+// const storeUser = new Users("imtripleq", "abc@gmail.com", "love is wonderful");
+// const storeuUser = new Users("qqq", "abc@gmail.com", "love is wonderful");

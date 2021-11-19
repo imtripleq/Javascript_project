@@ -239,7 +239,7 @@ const fetch1 = (a) => {
       quotePrint1(data, a);
       // quotePrint2(data);
       // quotePrint3(data);
-      console.log(data);
+      // console.log(data);
       // for (let i = 0; i < data.data.length; i++)
       // console.log(data.data[i].quoteText);
     });
@@ -257,88 +257,7 @@ fetch1(1);
 fetch1(2);
 fetch1(3);
 
-// ///////////
-
-// let auth0 = null;
-
-// const fetchAuthConfig = () => fetch("auth_config.json");
-
-// const configureClient = async () => {
-//   const response = await fetchAuthConfig();
-//   const config = await response.json();
-
-//   auth0 = await createAuth0Client({
-//     domain: config.domain,
-//     client_id: config.clientId,
-//   });
-// };
-
-// window.onload = async () => {
-//   await configureClient();
-
-//   updateUI();
-
-//   const isAuthenticated = await auth0.isAuthenticated();
-
-//   if (isAuthenticated) {
-//     // show the gated content
-//     return;
-//   }
-
-//   // NEW - check for the code and state parameters
-//   const query = window.location.search;
-//   if (query.includes("code=") && query.includes("state=")) {
-//     // Process the login state
-//     await auth0.handleRedirectCallback();
-
-//     updateUI();
-
-//     // Use replaceState to redirect the user away and remove the querystring parameters
-//     window.history.replaceState({}, document.title, "/");
-//   }
-// };
-
-// const updateUI = async () => {
-//   const isAuthenticated = await auth0.isAuthenticated();
-
-//   document.getElementById("btn-logout").disabled = !isAuthenticated;
-//   document.getElementById("btn-login").disabled = isAuthenticated;
-
-//   if (isAuthenticated) {
-//     document.getElementById("gated-content").classList.remove("hidden");
-
-//     document.getElementById("ipt-access-token").innerHTML =
-//       await auth0.getTokenSilently();
-
-//     let user = await auth0.getUser();
-//     document.getElementById("ipt-user-profile").textContent =
-//       JSON.stringify(user);
-
-//     let container = document.createElement("div");
-//     container.innerHTML = `
-//         <img src="${user.picture}"/>
-//         <div>${user.given_name} ${user.family_name}</div>
-//         <div>${user.email}</div>`;
-
-//     document.querySelector("#gated-content").append(container);
-//   } else {
-//     document.getElementById("gated-content").classList.add("hidden");
-//   }
-// };
-
-// const login = async () => {
-//   await auth0.loginWithRedirect({
-//     redirect_uri: window.location.origin,
-//   });
-// };
-
-// const logout = () => {
-//   auth0.logout({
-//     returnTo: window.location.origin,
-//   });
-// };
-
-/// new test
+///////// Auth0 Running
 let auth0 = null;
 const fetchAuthConfig = () => fetch("auth_config.json");
 
@@ -396,38 +315,57 @@ const updateUI = async () => {
   // NEW - add logic to show/hide gated content after authentication
   if (isAuthenticated) {
     let user = await auth0.getUser();
-    let container = document.createElement("div");
 
+    const userImg = document.createElement("img");
+    userImg.setAttribute("src", `${user.picture}`);
+
+    /////////// Remove Or Add hidden
+    document.getElementById("account-only-header").innerHTML = "";
+    document.getElementById("btn-login").classList.add("hidden");
+    document.getElementById("btn-logout").classList.remove("hidden");
+    document.getElementById("btn-fetch").classList.remove("hidden");
     document.getElementById("likeButton").classList.remove("hidden");
     document.getElementById("table-wrapper").classList.remove("hidden");
     document.getElementById("gated-content").classList.remove("hidden");
-    document.getElementById("ipt-access-token").innerHTML =
-      await auth0.getTokenSilently();
+    // document.getElementById("ipt-access-token").innerHTML =
+    //   await auth0.getTokenSilently();
 
-    ////////////// Starts ////////////////////////
-    if (user.given_name !== Users.id) {
-      const testCreate = new Users(user.given_name, user.email);
-      console.log(testCreate);
-      console.log(Users.id);
-    } else {
-      return `user existed`;
+    ////fetch db.json////
+    async function fetchAndCheck() {
+      const resp = await fetch("http://localhost:4000/users");
+      const data = await resp.json();
+
+      ////////  Getting Database Email
+      const dataEmail = [];
+      for (let i = 0; i < data.length; i++) {
+        dataEmail.push(data[i].email);
+      }
+
+      ////////// Match Database Email
+      console.log(dataEmail);
+      const findEmail = dataEmail.indexOf(user.email) > -1;
+      console.log(findEmail);
+
+      ///////// Creating new User
+      if (findEmail) {
+        console.log(`User Existed`);
+      } else if (!findEmail) {
+        console.log(`Creating User...`);
+        const testCreate = new Users(user.given_name, user.email);
+        fetchToMock(testCreate);
+      }
     }
+    fetchAndCheck();
+    ////////////// Starts ////////////////////////
 
-    // console.log(user.given_name);
-    // console.log(user.email);
-    // console.log(user);
-    // console.log(testCreate);
     /////////////// Ends  ////////////////////////
+    // console.log(user);
 
-    document.getElementById("ipt-user-profile").textContent =
-      JSON.stringify(user);
-
-    container.innerHTML = `
-        <img src="${user.picture}"/>
-        <div>${user.given_name} ${user.family_name}</div>
-        <div>${user.email}</div>`;
-
-    document.querySelector("#gated-content").append(container);
+    document.getElementById(
+      "ipt-user-profile"
+    ).textContent = `Welcome back ${user.name}!`;
+    document.getElementById("ipt-user-profile").appendChild(userImg);
+    // JSON.stringify(user);
   } else {
     document.getElementById("gated-content").classList.add("hidden");
   }

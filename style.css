@@ -61,7 +61,7 @@ body {
 
 .section__title {
   max-width: 80rem;
-  margin: 0 auto 8rem auto;
+  margin: 0 auto 0rem auto;
 }
 
 .section__description {
@@ -346,9 +346,39 @@ h1 {
 }
 
 /* CSS Special Affect Button Starts*/
-/* Table Starts */
 
-/* Table Styles */
+/* Logged in Starts */
+.logged-details {
+  display: block;
+}
+
+#ipt-user-profile {
+  padding: 3rem;
+  font-size: 7rem;
+}
+
+#btn-login {
+  grid-column-start: 2;
+}
+
+.login-container {
+  display: grid;
+  grid-template-columns: 1fr 35rem;
+}
+
+.loggedin-btn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16rem;
+  margin-bottom: 10rem;
+}
+/*  Logged in Ends*/
+
+/* Table Starts */
+.table-header {
+  margin: 6px;
+  text-align: left;
+}
 
 #table-wrapper {
   margin: 10px 70px 70px;
@@ -511,7 +541,7 @@ h1 {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 50%;
+  /* width: 50%; */
   will-change: transform;
   margin-left: 7rem;
   margin-right: 7rem;

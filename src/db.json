@@ -1,3 +1,19 @@
 {
-  "myQuotes": [{ "number": 1, "quotes": "Testing code number 1" }]
+  "users": [
+    {
+      "id": "abc",
+      "email": "abc@gmail.com",
+      "array": "love is wonderful"
+    },
+    {
+      "id": "imtripleq",
+      "email": "abc@gmail.com",
+      "array": "love is wonderful"
+    },
+    {
+      "name": "qqq",
+      "email": "flamework89@gmail.com",
+      "id": "qYfw6sE"
+    }
+  ]
 }

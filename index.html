@@ -178,33 +178,31 @@
     <section class="section" id="section--3">
       <div class="section__title section__title--account">
         <h2 class="section__description">Account only section</h2>
-        <h3 class="section__header">
-          Log in or create account to start save your quote!
-        </h3>
-<div>    <h2>SPA Authentication Sample</h2>
-  <p>Welcome to our page!</p>
-  <button id="btn-login" disabled="true" onclick="login()">Log in</button>
-  <button id="btn-logout" disabled="true" onclick="logout()">Log out</button></div>
-  <button id="btn-fetch" disabled="true" onclick="">Fetch</button></div>
+        <h3 class="section__header" id="account-only-header">
+          Log in or create account to start save your quote!</div>
+<span class="login-container">  
+  <button class="button-28" id="btn-login" disabled="true" onclick="login()">Log in</button>
+
+</span>
+
   <div>
     <div class="hidden" id="gated-content">
-      <p>
-        You're seeing this content because you're currently
-        <strong>logged in</strong>.
-      </p>
+
       <label>
-        Access token:
-        <pre id="ipt-access-token"></pre>
-      </label>
-      <label>
-        User profile:
         <pre id="ipt-user-profile"></pre>
+        <span class="loggedin-btn">
+          <button class="hidden button-28" id="btn-logout" disabled="true" onclick="logout()">Log out</button>
+          <button class="hidden button-28" id="btn-fetch" disabled="true" onclick="">Fetch</button>
+        </span>
       </label>
     </div>
-    </div>
+    
  
     <div class="hidden" id="table-wrapper">
-      <h2>Saved Quotes</h2>
+      <div class="table-header"> 
+        <h2>Saved Quotes</h2>
+      </div>
+     
         <table class="fl-table">
             <thead>
             <tr>
@@ -304,6 +302,7 @@
       </ul>
       <p class="footer__copyright">&copy; Copyright by Imtripleq</p>
     </footer>
+  </div>
 <!-- ///////////////// Account open Pop up  ////////////////// -->
     <div class="modal hidden">
       <button class="btn--close-modal">&times;</button>
@@ -323,8 +322,9 @@
     </div>
     <div class="overlay hidden"></div>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+    <script src="src/users.js"></script>
     <script src="index.js"></script>
-    <script src="/src/userquotes.js"></script>
-    <script src="/src/users.js"></script>
+    <script src="src/userquotes.js"></script>
+
   </body>
 </html>

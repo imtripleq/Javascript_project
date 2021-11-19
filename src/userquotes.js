@@ -1,21 +1,19 @@
 ////////// Send to Mock Server
 
 function fetchToMock(quote) {
-  return fetch("http://localhost:3000/db", {
+  return fetch("http://localhost:4000/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify({
-      Quotes: 1,
-    }),
+    body: JSON.stringify(quote),
   });
 }
 
 ///////////// Add to list
 function fetchFromMock() {
-  return fetch("http://localhost:3000/db")
+  return fetch("http://localhost:4000/users")
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data);
@@ -25,3 +23,6 @@ function fetchFromMock() {
       });
     });
 }
+
+// fetchToMock("hahaha");
+// console.log();
