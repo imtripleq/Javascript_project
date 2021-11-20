@@ -1,8 +1,8 @@
 class Users {
-  constructor(name, email, array) {
+  constructor(name, email, quotes) {
     this.name = name;
     this.email = email;
-    this.array = array;
+    this.Quotes = quotes;
   }
 
   showQuotes() {

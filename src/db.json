@@ -1,26 +1,31 @@
 {
   "users": [
     {
-      "id": "abc",
-      "email": "abc@gmail.com",
-      "array": [
-        "love is wonderful"
-      ]
+      "Quotes": [
+        "Testing 1",
+        "testing quote",
+        "testing quote",
+        "testing quote",
+        "testing quote"
+      ],
+      "id": "abc"
     },
     {
       "id": "imtripleq",
       "email": "abc@gmail.com",
-      "array": [
-        "love is wonderful"
+      "Quotes": [
+        "Testing 1",
+        "testing quote"
       ]
     },
     {
       "name": "qqq",
       "email": "flamework89@gmail.com",
-      "id": "XNRuajZ"
-    },
-    {
-      "id": "sR57Tau"
+      "id": "XNRuajZ",
+      "Quotes": [
+        "Testing 1",
+        "testing quote"
+      ]
     }
   ]
 }

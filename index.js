@@ -330,7 +330,7 @@ const updateUI = async () => {
     // document.getElementById("ipt-access-token").innerHTML =
     //   await auth0.getTokenSilently();
 
-    ////fetch db.json////
+    ////Check New or Old account after login ////
     async function fetchAndCheck() {
       const resp = await fetch("http://localhost:4000/users");
       const data = await resp.json();
@@ -355,12 +355,9 @@ const updateUI = async () => {
         fetchToMock(testCreate);
       }
     }
+
     fetchAndCheck();
-    ////////////// Starts ////////////////////////
-
-    /////////////// Ends  ////////////////////////
-    // console.log(user);
-
+    ////////////////////Show Welcome back After logged in
     document.getElementById(
       "ipt-user-profile"
     ).textContent = `Welcome back ${user.name}!`;
@@ -370,3 +367,44 @@ const updateUI = async () => {
     document.getElementById("gated-content").classList.add("hidden");
   }
 };
+
+////////// Fetch the Users from database
+async function fetchFromMock() {
+  const resp = await fetch("http://localhost:4000/users");
+  const data = await resp.json();
+  //////////
+  console.log(data);
+  const selecting = data[data.map((user) => user.id).indexOf("abc")];
+  console.log(selecting.Quotes);
+  // const passingIn = selecting.Quotes;
+  // console.log(passingIn);
+  //////// Add Liked Quote to array
+  function likedQuote(q, id) {
+    data[data.map((user_1) => user_1.id).indexOf("abc")].Quotes.push(q);
+  }
+  document.getElementById("likeButton1").addEventListener("click", () => {
+    const quote1 = document.getElementById("operations_quote1").innerHTML;
+    likedQuote(quote1);
+  });
+
+  const copySelecting = { Quotes: [...selecting.Quotes] };
+  console.log(copySelecting);
+
+  ///////////////////////// Pushing Quote to Database
+  function updateToMock(quote, id) {
+    return fetch(`http://localhost:4000/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(quote),
+    });
+  }
+  // updateToMock(copySelecting, "abc");
+
+  //////////// receive original array value and
+  /////////////////create a function to push the
+  //////////////'click array' to that array and post
+  /////////// it to the server
+}
+fetchFromMock();
