@@ -2,16 +2,12 @@
   "users": [
     {
       "Quotes": [
-        "Testing 1",
-        "testing quote",
-        "testing quote",
-        "testing quote",
-        "testing quote"
+        "Testing 1"
       ],
-      "id": "abc"
+      "id": "haha@gmail.com"
     },
     {
-      "id": "imtripleq",
+      "id": "abc@gmail.com",
       "email": "abc@gmail.com",
       "Quotes": [
         "Testing 1",
@@ -19,13 +15,31 @@
       ]
     },
     {
-      "name": "qqq",
+      "id": "flamework89@gmail.com",
       "email": "flamework89@gmail.com",
-      "id": "XNRuajZ",
       "Quotes": [
-        "Testing 1",
-        "testing quote"
-      ]
+        "\"One person I've always wanted to work with who would be an amazing guest star would be James Earl Jones.\"",
+        "\"Art is the daughter of freedom.\"",
+        "\"Above all we should not forget that government is an evil, a usurpation upon the private judgement and individual conscience of mankind.\"",
+        "\"It's about time we all faced up to the truth. If we accept the radical homosexual agenda, be it in the military or in marriage or in other areas of our lives, we are utterly destroying the concept of family.\"",
+        "\"I think there are certain folks in Missouri that don't trust government. And they haven't trusted government for a long time.\"",
+        "\"Modern medical advances have helped millions of people live longer, healthier lives. We owe these improvements to decades of investment in medical research.\"",
+        "\"Nobody expects to trust his body overmuch after the age of fifty.\"",
+        "\"It's very much like opera singers. They do the same thing. The first thing in the morning and the last thing at night, the thing they think about is their voice and how to take care of it.\""
+      ],
+      "name": "qqq"
+    },
+    {
+      "id": "anniewong_06@hotmail.com",
+      "email": "anniewong_06@hotmail.com",
+      "Quotes": [
+        "\"Technology has a great advantage in that we are capable of creating dinosaurs and show them on the screen even though they are extinct 65 million years. All of a sudden, we have a fantastic tool that is as good as dreams are.\"",
+        "\"Be patient and understanding. Life is too short to be vengeful or malicious.\"",
+        "\"I tried to get a baseball movie made a couple of years ago and I don't think it didn't happen because I was a woman, but because sports movie don't sell internationally.\"",
+        "\"I tried to get a baseball movie made a couple of years ago and I don't think it didn't happen because I was a woman, but because sports movie don't sell internationally.\"",
+        "\"The will is never free - it is always attached to an object, a purpose. It is simply the engine in the car - it can't steer.\""
+      ],
+      "name": "anniewong_06@hotmail.com"
     }
   ]
 }

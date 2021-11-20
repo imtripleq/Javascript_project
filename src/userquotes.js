@@ -10,5 +10,7 @@ function fetchToMock(quote) {
     body: JSON.stringify(quote),
   });
 }
-
 ///////////// Add to list
+fetch("http://localhost:4000/users/flamework89@gmail.com")
+  .then((resp) => resp.json())
+  .then((data) => console.log(data.Quotes));

@@ -28,14 +28,14 @@ const closeModal = function () {
 
 btnsOpenModal.forEach((btn) => btn.addEventListener("click", openModal));
 
-btnCloseModal.addEventListener("click", closeModal);
-overlay.addEventListener("click", closeModal);
+// btnCloseModal.addEventListener("click", closeModal);
+// overlay.addEventListener("click", closeModal);
 
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-    closeModal();
-  }
-});
+// document.addEventListener("keydown", function (e) {
+//   if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+//     closeModal();
+//   }
+// });
 
 ///////////////////////////////////////
 // Button scrolling
@@ -64,15 +64,15 @@ btnScrollTo.addEventListener("click", function (e) {
 // 1. Add event listener to common parent element
 // 2. Determine what element originated the event
 
-document.querySelector(".nav__links").addEventListener("click", function (e) {
-  e.preventDefault();
+// document.querySelector(".nav__links").addEventListener("click", function (e) {
+//   e.preventDefault();
 
-  // Matching strategy
-  if (e.target.classList.contains("nav__link")) {
-    const id = e.target.getAttribute("href");
-    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
-  }
-});
+//   // Matching strategy
+//   if (e.target.classList.contains("nav__link")) {
+//     const id = e.target.getAttribute("href");
+//     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+//   }
+// });
 
 ///////////////////////////////////////
 // Tabbed component
@@ -248,6 +248,9 @@ const fetch1 = (a) => {
 const refreshBtn = document.getElementById("refresh--btn");
 
 refreshBtn.addEventListener("click", () => {
+  document.getElementById("likeButton1").innerText = "Like ♡";
+  document.getElementById("likeButton2").innerText = "Like ♡";
+  document.getElementById("likeButton3").innerText = "Like ♡";
   fetch1(1);
   fetch1(2);
   fetch1(3);
@@ -314,27 +317,49 @@ const updateUI = async () => {
 
   // NEW - add logic to show/hide gated content after authentication
   if (isAuthenticated) {
-    let user = await auth0.getUser();
-
-    const userImg = document.createElement("img");
-    userImg.setAttribute("src", `${user.picture}`);
+    user = await auth0.getUser();
 
     /////////// Remove Or Add hidden
+    document.getElementById("navLogin").setAttribute("onclick", "logout()");
+    document.getElementById("navLogin").innerText = "Log out";
     document.getElementById("account-only-header").innerHTML = "";
     document.getElementById("btn-login").classList.add("hidden");
     document.getElementById("btn-logout").classList.remove("hidden");
     document.getElementById("btn-fetch").classList.remove("hidden");
-    document.getElementById("likeButton").classList.remove("hidden");
+    document.getElementById("likeButton1").classList.remove("hidden");
+    document.getElementById("likeButton2").classList.remove("hidden");
+    document.getElementById("likeButton3").classList.remove("hidden");
     document.getElementById("table-wrapper").classList.remove("hidden");
     document.getElementById("gated-content").classList.remove("hidden");
     // document.getElementById("ipt-access-token").innerHTML =
     //   await auth0.getTokenSilently();
 
-    ////Check New or Old account after login ////
-    async function fetchAndCheck() {
-      const resp = await fetch("http://localhost:4000/users");
+    ////// Loading Id Table Content
+    async function fetchAndCheck(userID) {
+      const resp = await fetch(`http://localhost:4000/users/${userID}`);
       const data = await resp.json();
 
+      for (let i = 0; i < data.Quotes.length; i++) {
+        const tbody = document.querySelector(".quotes-table");
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+        <td>${i}</td>
+        <td>${data.Quotes[i]}</td>
+        <td><button type="button" onclick="" class="buton-28">Delete</button></td>`;
+        console.log(data.Quotes[i]);
+        tbody.appendChild(tr);
+      }
+    }
+
+    //////////////// Quotes Start
+
+    ////////// Fetch the Users from database
+    async function fetchFromMock(loggedId) {
+      const resp = await fetch("http://localhost:4000/users");
+      const data = await resp.json();
+      //////////
+
+      ////Check New or Old account after login ////
       ////////  Getting Database Email
       const dataEmail = [];
       for (let i = 0; i < data.length; i++) {
@@ -342,22 +367,80 @@ const updateUI = async () => {
       }
 
       ////////// Match Database Email
-      console.log(dataEmail);
+      // console.log(dataEmail);
       const findEmail = dataEmail.indexOf(user.email) > -1;
-      console.log(findEmail);
+      // console.log(findEmail);
 
       ///////// Creating new User
       if (findEmail) {
+        fetchAndCheck(user.email);
         console.log(`User Existed`);
       } else if (!findEmail) {
         console.log(`Creating User...`);
-        const testCreate = new Users(user.given_name, user.email);
+        const testCreate = new Users(user.email, user.email, [], user.name);
         fetchToMock(testCreate);
       }
-    }
 
-    fetchAndCheck();
+      //////// Add Liked Quote to array
+      function likedQuote(q, id) {
+        const selecting =
+          data[data.map((selectUser) => selectUser.id).indexOf(id)];
+
+        console.log(selecting);
+
+        data[data.map((user_1) => user_1.id).indexOf(id)].Quotes.push(q);
+
+        const copySelecting = { Quotes: [...selecting.Quotes] };
+
+        console.log(copySelecting);
+
+        updateToMock(copySelecting, loggedId.email);
+      }
+
+      ///////////////////////// Pushing Quote to Database
+      function updateToMock(quote, id) {
+        return fetch(`http://localhost:4000/users/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(quote),
+        });
+      }
+      document.getElementById("likeButton1").addEventListener("click", () => {
+        document.getElementById("likeButton1").innerText = "Liked ❤";
+        const quote1 = document.getElementById("operations_quote1").innerHTML;
+        likedQuote(quote1, loggedId.email);
+
+        console.log("clicked1");
+      });
+      document.getElementById("likeButton2").addEventListener("click", () => {
+        document.getElementById("likeButton2").innerText = "Liked ❤";
+        const quote2 = document.getElementById("operations_quote2").innerHTML;
+        likedQuote(quote2, loggedId.email);
+
+        console.log("clicked2");
+      });
+      document.getElementById("likeButton3").addEventListener("click", () => {
+        document.getElementById("likeButton3").innerText = "Liked ❤";
+        const quote3 = document.getElementById("operations_quote3").innerHTML;
+        likedQuote(quote3, loggedId.email);
+
+        console.log("clicked3");
+      });
+
+      //////////// receive original array value and
+      /////////////////create a function to push the
+      //////////////'click array' to that array and post
+      /////////// it to the server
+    }
+    fetchFromMock(user);
+
+    //////////////// Quotes End
     ////////////////////Show Welcome back After logged in
+    const userImg = document.createElement("img");
+    userImg.setAttribute("src", `${user.picture}`);
+
     document.getElementById(
       "ipt-user-profile"
     ).textContent = `Welcome back ${user.name}!`;
@@ -367,44 +450,3 @@ const updateUI = async () => {
     document.getElementById("gated-content").classList.add("hidden");
   }
 };
-
-////////// Fetch the Users from database
-async function fetchFromMock() {
-  const resp = await fetch("http://localhost:4000/users");
-  const data = await resp.json();
-  //////////
-  console.log(data);
-  const selecting = data[data.map((user) => user.id).indexOf("abc")];
-  console.log(selecting.Quotes);
-  // const passingIn = selecting.Quotes;
-  // console.log(passingIn);
-  //////// Add Liked Quote to array
-  function likedQuote(q, id) {
-    data[data.map((user_1) => user_1.id).indexOf("abc")].Quotes.push(q);
-  }
-  document.getElementById("likeButton1").addEventListener("click", () => {
-    const quote1 = document.getElementById("operations_quote1").innerHTML;
-    likedQuote(quote1);
-  });
-
-  const copySelecting = { Quotes: [...selecting.Quotes] };
-  console.log(copySelecting);
-
-  ///////////////////////// Pushing Quote to Database
-  function updateToMock(quote, id) {
-    return fetch(`http://localhost:4000/users/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(quote),
-    });
-  }
-  // updateToMock(copySelecting, "abc");
-
-  //////////// receive original array value and
-  /////////////////create a function to push the
-  //////////////'click array' to that array and post
-  /////////// it to the server
-}
-fetchFromMock();
