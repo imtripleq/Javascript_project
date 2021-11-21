@@ -312,12 +312,16 @@ const login = async () => {
   });
 };
 
+////////////////////////////////////////////////////////
+//////////// Mighty UpdateUI Starts Here ///////////////
+////////////////////////////////////////////////////////
+
 const updateUI = async () => {
   const isAuthenticated = await auth0.isAuthenticated();
 
   // document.getElementById("btn-logout").disabled = !isAuthenticated;
   document.getElementById("btn-login").disabled = isAuthenticated;
-
+  user = await auth0.getUser();
   // NEW - add logic to show/hide gated content after authentication
   if (isAuthenticated) {
     user = await auth0.getUser();
@@ -349,7 +353,7 @@ const updateUI = async () => {
         tr.innerHTML = `
         <td>${i + 1}</td>
         <td>${data.Quotes[i]}</td>
-        <td><button type="button" onclick="deleteQuote(${i}, loggedId.email)" class="buton-28" id="deleteBtn${i}">Delete</button></td>`;
+        <td><button type="button" onclick="deleteQuote('${userID}',${i})" class="buton-28" id="deleteBtn${i}">Delete</button></td>`;
         // console.log(data.Quotes[i]);
         tbody.appendChild(tr);
       }
@@ -384,47 +388,27 @@ const updateUI = async () => {
         const testCreate = new Users(user.email, user.email, [], user.name);
         fetchToMock(testCreate);
       }
-      //////// Delete button
-      const deleteQuote = function (num, id) {
-        const selecting =
-          data[data.map((selectUser) => selectUser.id).indexOf(id)];
 
-        console.log(selecting);
-
-        data[data.map((user_1) => user_1.id).indexOf(id)].Quotes.splice(num, 1);
-
-        const deleteSelecting = { Quotes: [...selecting.Quotes] };
-        updateToMock(deleteSelecting, loggedId.email);
-        console.log(deleteSelecting);
-        // updateToMock(copySelecting, loggedId.email);
-      };
-      deleteQuote(0, loggedId.email);
       //////// Add Liked Quote to array
       function likedQuote(q, id) {
-        const selecting =
-          data[data.map((selectUser) => selectUser.id).indexOf(id)];
+        fetch("http://localhost:4000/users")
+          .then((resp) => resp.json())
+          .then((data) => {
+            const selecting =
+              data[data.map((selectUser) => selectUser.id).indexOf(id)];
 
-        console.log(selecting);
+            console.log(selecting);
 
-        data[data.map((user_1) => user_1.id).indexOf(id)].Quotes.push(q);
+            data[data.map((user_1) => user_1.id).indexOf(id)].Quotes.push(q);
 
-        const copySelecting = { Quotes: [...selecting.Quotes] };
+            const copySelecting = { Quotes: [...selecting.Quotes] };
 
-        console.log(copySelecting);
+            console.log(copySelecting);
 
-        updateToMock(copySelecting, loggedId.email);
+            updateToMock(copySelecting, loggedId.email);
+          });
       }
 
-      ///////////////////////// Pushing Quote to Database
-      function updateToMock(quote, id) {
-        return fetch(`http://localhost:4000/users/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(quote),
-        });
-      }
       document.getElementById("likeButton1").addEventListener("click", () => {
         const likeButton1 = document.getElementById("likeButton1");
         likeButton1.innerText = "Liked ❤";
@@ -470,4 +454,66 @@ const updateUI = async () => {
   } else {
     document.getElementById("gated-content").classList.add("hidden");
   }
+
+  ///////////////////////// Pushing Quote to Database
+  function updateToMock(quote, id) {
+    return fetch(`http://localhost:4000/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(quote),
+    });
+  }
+
+  //////////// Delete button try here
+  // async function fetchMock(loggedId) {
+  //   const resp = await fetch("http://localhost:4000/users");
+  //   const data = await resp.json();
+  //   console.log(data);
+  //   console.log(loggedId.email);
+  //////// Delete button
+  deleteQuote = function (loggedId, num) {
+    fetch("http://localhost:4000/users")
+      .then((resp) => resp.json())
+      .then((data) => {
+        document.querySelector(".quotes-table").innerHTML = "";
+        fetchAndRefresh(loggedId);
+
+        const selecting =
+          data[data.map((selectUser) => selectUser.id).indexOf(loggedId)];
+        data[data.map((user_1) => user_1.id).indexOf(loggedId)].Quotes.splice(
+          num,
+          1
+        );
+        const deleteSelecting = { Quotes: [...selecting.Quotes] };
+        updateToMock(deleteSelecting, loggedId);
+
+        // updateToMock(copySelecting, loggedId.email);
+
+        ////// Loading Id Table Content
+        async function fetchAndRefresh(userID) {
+          const resp = await fetch(`http://localhost:4000/users/${userID}`);
+          const data = await resp.json();
+
+          for (let i = 0; i < data.Quotes.length; i++) {
+            const tbody = document.querySelector(".quotes-table");
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${data.Quotes[i]}</td>
+        <td><button type="button" onclick="deleteQuote('${userID}',${i})" class="buton-28" id="deleteBtn${i}">Delete</button></td>`;
+            // console.log(data.Quotes[i]);
+            tbody.appendChild(tr);
+          }
+        }
+      });
+  };
+
+  // console.log(user);
+  // deleteQuote(user);
 };
+
+////////////////////////////////////////////////////////
+//////////// Mighty UpdateUI Starts Ends ///////////////
+////////////////////////////////////////////////////////
