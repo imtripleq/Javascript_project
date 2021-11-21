@@ -251,6 +251,9 @@ refreshBtn.addEventListener("click", () => {
   document.getElementById("likeButton1").innerText = "Like ♡";
   document.getElementById("likeButton2").innerText = "Like ♡";
   document.getElementById("likeButton3").innerText = "Like ♡";
+  document.getElementById("likeButton1").disabled = false;
+  document.getElementById("likeButton2").disabled = false;
+  document.getElementById("likeButton3").disabled = false;
   fetch1(1);
   fetch1(2);
   fetch1(3);
@@ -312,7 +315,7 @@ const login = async () => {
 const updateUI = async () => {
   const isAuthenticated = await auth0.isAuthenticated();
 
-  document.getElementById("btn-logout").disabled = !isAuthenticated;
+  // document.getElementById("btn-logout").disabled = !isAuthenticated;
   document.getElementById("btn-login").disabled = isAuthenticated;
 
   // NEW - add logic to show/hide gated content after authentication
@@ -324,8 +327,9 @@ const updateUI = async () => {
     document.getElementById("navLogin").innerText = "Log out";
     document.getElementById("account-only-header").innerHTML = "";
     document.getElementById("btn-login").classList.add("hidden");
-    document.getElementById("btn-logout").classList.remove("hidden");
-    document.getElementById("btn-fetch").classList.remove("hidden");
+    document.querySelector(".login-container").innerHTML = "";
+    // document.getElementById("btn-logout").classList.remove("hidden");
+    // document.getElementById("btn-fetch").classList.remove("hidden");
     document.getElementById("likeButton1").classList.remove("hidden");
     document.getElementById("likeButton2").classList.remove("hidden");
     document.getElementById("likeButton3").classList.remove("hidden");
@@ -343,10 +347,10 @@ const updateUI = async () => {
         const tbody = document.querySelector(".quotes-table");
         const tr = document.createElement("tr");
         tr.innerHTML = `
-        <td>${i}</td>
+        <td>${i + 1}</td>
         <td>${data.Quotes[i]}</td>
-        <td><button type="button" onclick="" class="buton-28">Delete</button></td>`;
-        console.log(data.Quotes[i]);
+        <td><button type="button" onclick="deleteQuote(${i}, loggedId.email)" class="buton-28" id="deleteBtn${i}">Delete</button></td>`;
+        // console.log(data.Quotes[i]);
         tbody.appendChild(tr);
       }
     }
@@ -380,7 +384,21 @@ const updateUI = async () => {
         const testCreate = new Users(user.email, user.email, [], user.name);
         fetchToMock(testCreate);
       }
+      //////// Delete button
+      const deleteQuote = function (num, id) {
+        const selecting =
+          data[data.map((selectUser) => selectUser.id).indexOf(id)];
 
+        console.log(selecting);
+
+        data[data.map((user_1) => user_1.id).indexOf(id)].Quotes.splice(num, 1);
+
+        const deleteSelecting = { Quotes: [...selecting.Quotes] };
+        updateToMock(deleteSelecting, loggedId.email);
+        console.log(deleteSelecting);
+        // updateToMock(copySelecting, loggedId.email);
+      };
+      deleteQuote(0, loggedId.email);
       //////// Add Liked Quote to array
       function likedQuote(q, id) {
         const selecting =
@@ -408,9 +426,11 @@ const updateUI = async () => {
         });
       }
       document.getElementById("likeButton1").addEventListener("click", () => {
-        document.getElementById("likeButton1").innerText = "Liked ❤";
+        const likeButton1 = document.getElementById("likeButton1");
+        likeButton1.innerText = "Liked ❤";
         const quote1 = document.getElementById("operations_quote1").innerHTML;
         likedQuote(quote1, loggedId.email);
+        document.getElementById("likeButton1").disabled = true;
 
         console.log("clicked1");
       });
@@ -418,14 +438,14 @@ const updateUI = async () => {
         document.getElementById("likeButton2").innerText = "Liked ❤";
         const quote2 = document.getElementById("operations_quote2").innerHTML;
         likedQuote(quote2, loggedId.email);
-
+        document.getElementById("likeButton2").disabled = true;
         console.log("clicked2");
       });
       document.getElementById("likeButton3").addEventListener("click", () => {
         document.getElementById("likeButton3").innerText = "Liked ❤";
         const quote3 = document.getElementById("operations_quote3").innerHTML;
         likedQuote(quote3, loggedId.email);
-
+        document.getElementById("likeButton3").disabled = true;
         console.log("clicked3");
       });
 
@@ -443,7 +463,8 @@ const updateUI = async () => {
 
     document.getElementById(
       "ipt-user-profile"
-    ).textContent = `Welcome back ${user.name}!`;
+    ).innerHTML = `<span class="highlight">Welcome back</span> 
+    ${user.name}!`;
     document.getElementById("ipt-user-profile").appendChild(userImg);
     // JSON.stringify(user);
   } else {

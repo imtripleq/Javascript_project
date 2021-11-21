@@ -107,6 +107,8 @@ body {
   padding-bottom: 2px;
   cursor: pointer;
   transition: all 0.3s;
+  z-index: 1;
+  opacity: 0.8;
 }
 
 p {
@@ -497,7 +499,7 @@ h1 {
   background-color: transparent;
   border: 2px solid #c56d5e;
   min-height: 30px;
-  min-width: 50px;
+  min-width: 55px;
   box-sizing: border-box;
   text-align: center;
   text-decoration: none;
