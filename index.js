@@ -415,7 +415,8 @@ const updateUI = async () => {
         const quote1 = document.getElementById("operations_quote1").innerHTML;
         likedQuote(quote1, loggedId.email);
         document.getElementById("likeButton1").disabled = true;
-
+        (document.querySelector(".quotes-table").innerHTML = ""),
+          setTimeout(() => fetchAndCheck(loggedId.email), 500);
         console.log("clicked1");
       });
       document.getElementById("likeButton2").addEventListener("click", () => {
@@ -423,6 +424,8 @@ const updateUI = async () => {
         const quote2 = document.getElementById("operations_quote2").innerHTML;
         likedQuote(quote2, loggedId.email);
         document.getElementById("likeButton2").disabled = true;
+        (document.querySelector(".quotes-table").innerHTML = ""),
+          setTimeout(() => fetchAndCheck(loggedId.email), 500);
         console.log("clicked2");
       });
       document.getElementById("likeButton3").addEventListener("click", () => {
@@ -430,6 +433,8 @@ const updateUI = async () => {
         const quote3 = document.getElementById("operations_quote3").innerHTML;
         likedQuote(quote3, loggedId.email);
         document.getElementById("likeButton3").disabled = true;
+        (document.querySelector(".quotes-table").innerHTML = ""),
+          setTimeout(() => fetchAndCheck(loggedId.email), 500);
         console.log("clicked3");
       });
 
@@ -477,9 +482,6 @@ const updateUI = async () => {
     fetch("http://localhost:4000/users")
       .then((resp) => resp.json())
       .then((data) => {
-        document.querySelector(".quotes-table").innerHTML = "";
-        fetchAndRefresh(loggedId);
-
         const selecting =
           data[data.map((selectUser) => selectUser.id).indexOf(loggedId)];
         data[data.map((user_1) => user_1.id).indexOf(loggedId)].Quotes.splice(
@@ -507,6 +509,8 @@ const updateUI = async () => {
             tbody.appendChild(tr);
           }
         }
+        (document.querySelector(".quotes-table").innerHTML = ""),
+          setTimeout(() => fetchAndRefresh(loggedId), 500);
       });
   };
 
