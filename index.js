@@ -28,31 +28,10 @@ const closeModal = function () {
 
 btnsOpenModal.forEach((btn) => btn.addEventListener("click", openModal));
 
-// btnCloseModal.addEventListener("click", closeModal);
-// overlay.addEventListener("click", closeModal);
-
-// document.addEventListener("keydown", function (e) {
-//   if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-//     closeModal();
-//   }
-// });
-
 ///////////////////////////////////////
 // Button scrolling
 btnScrollTo.addEventListener("click", function (e) {
   const s1coords = section1.getBoundingClientRect();
-  // console.log(s1coords);
-
-  // console.log(e.target.getBoundingClientRect());
-
-  // console.log("Current scroll (X/Y)", window.pageXOffset, window.pageYOffset);
-
-  // console.log(
-  //   "height/width viewport",
-  //   document.documentElement.clientHeight,
-  //   document.documentElement.clientWidth
-  // );
-
   // Scrolling
 
   section1.scrollIntoView({ behavior: "smooth" });
@@ -200,31 +179,6 @@ const quotePrint1 = (data, num) => {
   document.getElementById(`operations_genre${num}`).innerHTML =
     quote.quoteGenre.charAt(0).toUpperCase() + quote.quoteGenre.slice(1);
 };
-
-// const quotePrint2 = (data) => {
-//   const quote2 = data.data[0];
-//   document.getElementById("operations_quote2").innerText = quote2.quoteText;
-//   document.getElementById("operations_author2").innerHTML = quote2.quoteAuthor;
-//   document.getElementById("operations_genre2").innerHTML =
-//     quote2.quoteGenre.charAt(0).toUpperCase() + quote2.quoteGenre.slice(1);
-// };
-
-// const quotePrint3 = (data) => {
-//   const quote3 = data.data[0];
-//   document.getElementById("operations_quote3").innerText = quote3.quoteText;
-//   document.getElementById("operations_author3").innerHTML = quote3.quoteAuthor;
-//   document.getElementById("operations_genre3").innerHTML =
-//     quote3.quoteGenre.charAt(0).toUpperCase() + quote3.quoteGenre.slice(1);
-// };
-
-// let quoteNum1 = Math.floor(Math.random() * 30);
-// let quoteNum2 = Math.floor(Math.random() * 30);
-// let quoteNum3 = Math.floor(Math.random() * 30);
-// let pageNum = Math.floor(Math.random() * 300);
-// console.log(quoteNum1);
-// console.log(quoteNum2);
-// console.log(quoteNum3);
-// console.log(pageNum);
 let url = new URL("https://quote-garden.herokuapp.com/api/v3/quotes/random");
 url.search = new URLSearchParams({
   // page: pageNum,
@@ -237,11 +191,6 @@ const fetch1 = (a) => {
     .then((resp) => resp.json())
     .then((data) => {
       quotePrint1(data, a);
-      // quotePrint2(data);
-      // quotePrint3(data);
-      // console.log(data);
-      // for (let i = 0; i < data.data.length; i++)
-      // console.log(data.data[i].quoteText);
     });
 };
 
@@ -437,11 +386,6 @@ const updateUI = async () => {
           setTimeout(() => fetchAndCheck(loggedId.email), 500);
         console.log("clicked3");
       });
-
-      //////////// receive original array value and
-      /////////////////create a function to push the
-      //////////////'click array' to that array and post
-      /////////// it to the server
     }
     fetchFromMock(user);
 
@@ -471,12 +415,6 @@ const updateUI = async () => {
     });
   }
 
-  //////////// Delete button try here
-  // async function fetchMock(loggedId) {
-  //   const resp = await fetch("http://localhost:4000/users");
-  //   const data = await resp.json();
-  //   console.log(data);
-  //   console.log(loggedId.email);
   //////// Delete button
   deleteQuote = function (loggedId, num) {
     fetch("http://localhost:4000/users")
