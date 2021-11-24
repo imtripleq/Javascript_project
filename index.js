@@ -197,15 +197,15 @@ const fetch1 = (a) => {
 const refreshBtn = document.getElementById("refresh--btn");
 
 refreshBtn.addEventListener("click", () => {
+  fetch1(1);
+  fetch1(2);
+  fetch1(3);
   document.getElementById("likeButton1").innerText = "Like ♡";
   document.getElementById("likeButton2").innerText = "Like ♡";
   document.getElementById("likeButton3").innerText = "Like ♡";
   document.getElementById("likeButton1").disabled = false;
   document.getElementById("likeButton2").disabled = false;
   document.getElementById("likeButton3").disabled = false;
-  fetch1(1);
-  fetch1(2);
-  fetch1(3);
 });
 
 fetch1(1);
