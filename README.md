@@ -7,6 +7,7 @@ Please install json server in order to test this website.
 Before running this website. Please enter :
 
 > cd src
+
 > json-server --watch db.json --port 4000
 
 And please run live-server in to test this website.
