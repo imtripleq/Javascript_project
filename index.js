@@ -174,6 +174,7 @@ const fetch1 = (a) => {
   fetch(url)
     .then((resp) => resp.json())
     .then((data) => {
+      console.log(data);
       quotePrint1(data, a);
     });
 };
@@ -260,6 +261,7 @@ const updateUI = async () => {
     user = await auth0.getUser();
 
     /////////// Remove Or Add hidden
+    document.getElementById("refresh--btn").classList.remove("hidden");
     document.getElementById("navLogin").setAttribute("onclick", "logout()");
     document.getElementById("navLogin").innerText = "Log out";
     document.getElementById("account-only-header").innerHTML = "";

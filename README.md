@@ -10,7 +10,7 @@ Before running this website. Please enter :
 
 > json-server --watch db.json --port 4000
 
-And please run live-server to test this website.
+And please run your index.html using a web server to test this website.
 
 ## Features
 
