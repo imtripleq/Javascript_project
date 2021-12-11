@@ -1,4 +1,4 @@
-# WELCOME TO QQQ JAVASCRIPT PROJECT
+# WELCOME TO DENNIS'S JAVASCRIPT PROJECT
 
 ## Installation & run
 
@@ -14,7 +14,7 @@ And please run your index.html using a web server to test this website.
 
 ## Features
 
-This website generates 3 quotes per times from the api which contains over 73000 quotes in the database.
+This website generates 3 quotes per times from QuoteGarden api which contains over 73000 quotes in the database.
 
 Log in to your own account in order to store your personal quotes.
 
