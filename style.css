@@ -115,7 +115,6 @@ p {
   color: #666;
 }
 
-/* This is BAD for accessibility! Don't do in the real world! */
 button:focus {
   outline: none;
 }
@@ -123,10 +122,6 @@ button:focus {
 img {
   transition: filter 0.5s;
 }
-/* 
-.lazy-img {
-  filter: blur(20px);
-} */
 
 /* NAVIGATION */
 .nav {
@@ -139,7 +134,6 @@ img {
   z-index: 100;
 }
 
-/* nav and stickly class at the same time */
 .nav.sticky {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.95);
@@ -147,7 +141,6 @@ img {
 
 .nav__logo {
   padding-top: 15px;
-  /* height: 15rem; */
   transition: all 0.3s;
 }
 
